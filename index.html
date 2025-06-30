@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <main>
+        <!-- Keresés és szűrés -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Keresés a szavak között">
+            <div class="select-wrapper">
+                <select id="categoryFilter">
+                    <option value="all">Összes kategória</option>
+                    <option value="basic">Alapszavak</option>
+                    <option value="family">Család</option>
+                    <option value="actions">Cselekvések</option>
+                    <option value="body">Testrészek</option>
+                    <option value="food">Étel</option>
+                    <option value="time">Idő</option>
+                    <option value="nature">Természet</option>
+                    <option value="animals">Állatok</option>
+                </select>
+            </div>
+            <button id="todayButton" class="today-btn">Ma</button>
+        </div>
+
+        <!-- Szavak lista -->
+        <div class="words-container">
+            <div class="words-list" id="wordsList"></div>
+        </div>
+
+        <!-- Modal ablak -->
+        <div id="wordModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="nav-btn" id="prevWord">‹</button>
+                    <span class="close">&times;</span>
+                    <button class="nav-btn" id="nextWord">›</button>
+                </div>
+                <div class="modal-body">
+                    <div class="word-card-large">
+                        <div class="word-illustration" id="modalIllustration"></div>
+                        <h2 class="word-romani" id="modalRomani"></h2>
+                        <div class="word-pronunciation" id="modalPronunciation"></div>
+                        <div class="word-hungarian" id="modalHungarian"></div>
+                        <div class="word-definition" id="modalDefinition"></div>
+                        <div class="word-examples">
+                            <div class="example-romani" id="modalExampleRomani"></div>
+                            <div class="example-hungarian" id="modalExampleHungarian"></div>
+                        </div>
+                        <div class="word-date" id="modalDate"></div>
+                        <div class="share-buttons">
+                            <button class="share-btn messenger" id="shareMessenger" data-platform="messenger">
+                                💬 Messenger
+                            </button>
+                            <button class="share-btn copy" id="shareLink">
+                                🔗 Link másolás
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="words.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html> 
