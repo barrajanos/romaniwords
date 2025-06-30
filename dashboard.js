@@ -30,9 +30,20 @@ function initializeDashboard() {
     nextBtn.addEventListener('click', showNextWord);
     
     // Feliratkozási modal
-    document.getElementById('subscribeBtn').addEventListener('click', openSubscribeModal);
-    document.getElementById('subscribeClose').addEventListener('click', closeSubscribeModal);
-    document.getElementById('subscribeForm').addEventListener('submit', handleSubscribe);
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', openSubscribeModal);
+    }
+    
+    const subscribeClose = document.getElementById('subscribeClose');
+    if (subscribeClose) {
+        subscribeClose.addEventListener('click', closeSubscribeModal);
+    }
+    
+    const subscribeForm = document.getElementById('subscribeForm');
+    if (subscribeForm) {
+        subscribeForm.addEventListener('submit', handleSubscribe);
+    }
     
     // Billentyűzet navigáció
     document.addEventListener('keydown', handleKeyboardNavigation);

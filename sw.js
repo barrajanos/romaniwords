@@ -1,11 +1,10 @@
-const CACHE_NAME = 'romani-szó-a-nap-v13';
+const CACHE_NAME = 'romani-szó-a-nap-v14';
 const urlsToCache = [
     '/',
     '/index.html',
     '/dashboard.css',
     '/dashboard.js',
-    '/words.js',
-    '/email-preview.html'
+    '/words.js'
 ];
 
 // Service Worker telepítése
