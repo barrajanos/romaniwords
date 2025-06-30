@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📧 Email Sablon Előnézet - Napi Romani Szó</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        .preview-header {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .preview-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .preview-note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .email-container {
+            background: white;
+            border: 3px solid #000;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .email-subject {
+            background: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .word-illustration {
+            font-size: 3em;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .word-romani {
+            font-size: 2.2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .word-pronunciation {
+            font-size: 1.2em;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .word-hungarian {
+            font-size: 1.6em;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        
+        .word-definition {
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-left: 4px solid #000;
+        }
+        
+        .examples {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 2px solid #000;
+        }
+        
+        .example-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .example-romani {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .example-hungarian {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            color: #666;
+        }
+        
+        .website-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #000;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            border: 2px solid #000;
+            border-radius: 4px;
+        }
+        
+        .website-btn:hover {
+            background: white;
+            color: #000;
+        }
+        
+        .generate-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px;
+        }
+        
+        .generate-btn:hover {
+            background: #0056b3;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+        
+        .back-btn:hover {
+            background: #545b62;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-header">
+        <h1>📧 Email Sablon Előnézet</h1>
+        <p>Napi Romani Szó Newsletter</p>
+    </div>
+    
+    <div class="preview-note">
+        <strong>ℹ️ Ez az előnézet</strong><br>
+        Így fog kinézni a napi email, amit a feliratkozók kapnak minden reggel. 
+        A sablon ugyanazokat az adatokat tartalmazza, mint egy szó adatlap a weboldalon.
+    </div>
+    
+    <div class="controls">
+        <a href="index.html" class="back-btn">← Vissza a főoldalra</a>
+        <button class="generate-btn" onclick="generateRandomEmail()">🎲 Véletlenszerű példa</button>
+        <button class="generate-btn" onclick="generateTodayEmail()">📅 Mai szó</button>
+    </div>
+    
+    <div class="email-subject" id="emailSubject">
+        🎯 2025. január 15. | Napi Romani Szó
+    </div>
+    
+    <div class="email-container">
+        <div class="header">
+            <h1>🎯 Napi Romani Szó</h1>
+            <p><strong id="emailDate">2025. január 15.</strong></p>
+        </div>
+        
+        <div class="word-illustration" id="emailIllustration">🏠</div>
+        <div class="word-romani" id="emailRomani">kher</div>
+        <div class="word-pronunciation" id="emailPronunciation">[ker]</div>
+        <div class="word-hungarian" id="emailHungarian">ház</div>
+        <div class="word-definition" id="emailDefinition">A lakóhely, otthon, ahol az ember él és pihen</div>
+        
+        <div class="examples">
+            <div class="example-label">📝 Példa:</div>
+            <div class="example-romani" id="emailExampleRomani">Miro kher si baro thaj şukar</div>
+            <div class="example-hungarian" id="emailExampleHungarian">→ Az én házam nagy és szép</div>
+        </div>
+        
+        <div class="footer">
+            <a href="https://barrajanos.github.io/romaniwords" class="website-btn">🌐 Látogasd meg a weboldalt</a>
+            <p>📚 Minden nap egy új romani szó!</p>
+            <p><small>Ha nem szeretnéd megkapni ezeket az emaileket, <a href="mailto:your-email@domain.com?subject=Leiratkozas">ide kattintva</a> leiratkozhatsz.</small></p>
+        </div>
+    </div>
+
+    <script src="words.js"></script>
+    <script>
+        function generateRandomEmail() {
+            const randomIndex = Math.floor(Math.random() * 365);
+            const word = getWordForDay(randomIndex);
+            
+            const startDate = new Date('2025-01-01');
+            const currentDate = new Date(startDate);
+            currentDate.setDate(startDate.getDate() + randomIndex);
+            
+            updateEmailPreview(word, currentDate);
+        }
+        
+        function generateTodayEmail() {
+            const today = new Date();
+            const startDate = new Date('2025-01-01');
+            const dayIndex = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+            
+            // Ha még nem 2025, vagy már vége az évnek, használjunk egy alapértelmezett indexet
+            const actualIndex = dayIndex >= 0 && dayIndex < 365 ? dayIndex : 0;
+            const word = getWordForDay(actualIndex);
+            
+            updateEmailPreview(word, dayIndex >= 0 && dayIndex < 365 ? today : startDate);
+        }
+        
+        function updateEmailPreview(word, date) {
+            const dateStr = date.toLocaleDateString('hu-HU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const shortDateStr = date.toLocaleDateString('hu-HU', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            });
+            
+            document.getElementById('emailSubject').textContent = `🎯 ${shortDateStr} | Napi Romani Szó`;
+            document.getElementById('emailDate').textContent = dateStr;
+            document.getElementById('emailIllustration').textContent = word.illustration;
+            document.getElementById('emailRomani').textContent = word.romani;
+            document.getElementById('emailPronunciation').textContent = `[${word.pronunciation}]`;
+            document.getElementById('emailHungarian').textContent = word.hungarian;
+            document.getElementById('emailDefinition').textContent = word.definition;
+            document.getElementById('emailExampleRomani').textContent = word.exampleRomani;
+            document.getElementById('emailExampleHungarian').textContent = `→ ${word.exampleHungarian}`;
+        }
+        
+        // Induláskor véletlenszerű példa betöltése
+        document.addEventListener('DOMContentLoaded', function() {
+            generateRandomEmail();
+        });
+    </script>
+</body>
+</html> 

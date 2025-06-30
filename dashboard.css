@@ -120,6 +120,31 @@ main {
     transform: translateY(1px);
 }
 
+.email-preview-btn {
+    padding: 12px 20px;
+    border: 2px solid #28a745;
+    border-radius: 0;
+    font-size: 16px;
+    background: #28a745;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    margin-left: 10px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.email-preview-btn:hover {
+    background: white;
+    color: #28a745;
+    text-decoration: none;
+}
+
+.email-preview-btn:active {
+    transform: translateY(1px);
+}
+
 /* Szavak lista */
 .words-list {
     display: grid;
