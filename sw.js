@@ -1,4 +1,4 @@
-const CACHE_NAME = 'romani-szó-a-nap-v11';
+const CACHE_NAME = 'romani-szó-a-nap-v12';
 const urlsToCache = [
     '/',
     '/index.html',

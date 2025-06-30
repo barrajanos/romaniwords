@@ -29,6 +29,11 @@ function initializeDashboard() {
     prevBtn.addEventListener('click', showPreviousWord);
     nextBtn.addEventListener('click', showNextWord);
     
+    // Feliratkozási modal
+    document.getElementById('subscribeBtn').addEventListener('click', openSubscribeModal);
+    document.getElementById('subscribeClose').addEventListener('click', closeSubscribeModal);
+    document.getElementById('subscribeForm').addEventListener('submit', handleSubscribe);
+    
     // Billentyűzet navigáció
     document.addEventListener('keydown', handleKeyboardNavigation);
     
@@ -36,6 +41,11 @@ function initializeDashboard() {
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
             closeModal();
+        }
+        // Feliratkozási modal bezárás
+        const subscribeModal = document.getElementById('subscribeModal');
+        if (event.target === subscribeModal) {
+            closeSubscribeModal();
         }
     });
 
@@ -311,5 +321,66 @@ function initializeDashboard() {
                 scrollToToday();
             }, 200);
         }
+    }
+    
+    // Feliratkozási modal függvények
+    function openSubscribeModal() {
+        const subscribeModal = document.getElementById('subscribeModal');
+        subscribeModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeSubscribeModal() {
+        const subscribeModal = document.getElementById('subscribeModal');
+        subscribeModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        
+        // Form reset
+        document.getElementById('subscribeForm').reset();
+    }
+    
+    function handleSubscribe(event) {
+        event.preventDefault();
+        
+        const emailInput = document.getElementById('emailInput');
+        const email = emailInput.value.trim();
+        
+        if (!email) {
+            alert('Kérlek add meg az email címedet!');
+            return;
+        }
+        
+        // Email validáció
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Kérlek adj meg egy érvényes email címet!');
+            return;
+        }
+        
+        // EmailJS küldés (ide jön majd a tényleges implementáció)
+        saveSubscription(email);
+    }
+    
+    function saveSubscription(email) {
+        // Egyelőre csak mentjük el localStorage-ba és visszajelzést adunk
+        // Később ezt kiegészítjük EmailJS-szel
+        
+        let subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
+        
+        // Ellenőrzés, hogy már feliratkozottq-e
+        if (subscribers.includes(email)) {
+            alert('Ez az email cím már fel van iratkozva! ✅');
+            closeSubscribeModal();
+            return;
+        }
+        
+        subscribers.push(email);
+        localStorage.setItem('subscribers', JSON.stringify(subscribers));
+        
+        alert(`Sikeres feliratkozás! 🎉\n\nA ${email} címre minden nap küldünk egy új romani szót!\n\n✨ Köszönjük a feliratkozást!`);
+        closeSubscribeModal();
+        
+        console.log('Új feliratkozó:', email);
+        console.log('Összes feliratkozó:', subscribers.length);
     }
 } 

@@ -24,6 +24,7 @@
                 </select>
             </div>
             <button id="todayButton" class="today-btn">Ma</button>
+            <button id="subscribeBtn" class="subscribe-btn">📧 Feliratkozom</button>
         </div>
 
         <!-- Szavak lista -->
@@ -63,8 +64,29 @@
                 </div>
             </div>
         </div>
+
+        <!-- Feliratkozási modal -->
+        <div id="subscribeModal" class="modal">
+            <div class="modal-content subscribe-modal">
+                <div class="modal-header">
+                    <span class="close" id="subscribeClose">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="subscribe-form">
+                        <h2>📧 Napi Romani Szó</h2>
+                        <p>Minden nap kapj egy új romani szót email-ben!</p>
+                        <form id="subscribeForm">
+                            <input type="email" id="emailInput" placeholder="email@cím.hu" required>
+                            <button type="submit" class="submit-btn">Feliratkozom</button>
+                        </form>
+                        <p class="privacy-note">📌 Adataidat biztonságban tároljuk és csak napi szó küldésére használjuk.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="words.js"></script>
     <script src="dashboard.js"></script>
 </body>

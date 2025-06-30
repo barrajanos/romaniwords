@@ -1,0 +1,101 @@
+name: Daily Romani Word Newsletter
+
+on:
+  schedule:
+    # Minden nap 8:00-kor (UTC) - ez 9:00 télen, 10:00 nyáron Magyarországon
+    - cron: '0 8 * * *'
+  # Manuális indításra is lehetőség
+  workflow_dispatch:
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install @emailjs/nodejs
+        
+    - name: Send daily newsletter
+      env:
+        EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
+        EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+        EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
+        EMAILJS_PRIVATE_KEY: ${{ secrets.EMAILJS_PRIVATE_KEY }}
+        SUBSCRIBERS_LIST: ${{ secrets.SUBSCRIBERS_LIST }}
+      run: |
+        node -e "
+        const emailjs = require('@emailjs/nodejs');
+        const fs = require('fs');
+        
+        // Words.js betöltése és word function kinyerése
+        const wordsContent = fs.readFileSync('./words.js', 'utf8');
+        eval(wordsContent);
+        
+        // Mai dátum és nap index számítása
+        const today = new Date();
+        const startDate = new Date('2025-01-01');
+        const dayIndex = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+        
+        // Mai szó lekérése
+        const todayWord = getWordForDay(dayIndex);
+        
+        // Email sablon adatok
+        const templateParams = {
+          date: today.toLocaleDateString('hu-HU', {
+            year: 'numeric',
+            month: 'long', 
+            day: 'numeric'
+          }),
+          illustration: todayWord.illustration,
+          romani: todayWord.romani,
+          pronunciation: todayWord.pronunciation,
+          hungarian: todayWord.hungarian,
+          definition: todayWord.definition,
+          exampleRomani: todayWord.exampleRomani,
+          exampleHungarian: todayWord.exampleHungarian,
+          website_url: 'https://barrajanos.github.io/romaniwords'
+        };
+        
+        // EmailJS inicializálás
+        emailjs.init({
+          publicKey: process.env.EMAILJS_PUBLIC_KEY,
+          privateKey: process.env.EMAILJS_PRIVATE_KEY
+        });
+        
+        // Feliratkozók listája (JSON formátumban a secrets-ben)
+        const subscribers = JSON.parse(process.env.SUBSCRIBERS_LIST || '[]');
+        
+        console.log('Napi levél küldése:', subscribers.length, 'feliratkozónak');
+        console.log('Mai szó:', todayWord.romani, '-', todayWord.hungarian);
+        
+        // Email küldése minden feliratkozónak
+        const sendPromises = subscribers.map(email => {
+          return emailjs.send(
+            process.env.EMAILJS_SERVICE_ID,
+            process.env.EMAILJS_TEMPLATE_ID,
+            {
+              ...templateParams,
+              to_email: email
+            }
+          );
+        });
+        
+        Promise.all(sendPromises)
+          .then(() => {
+            console.log('✅ Minden email sikeresen elküldve!');
+          })
+          .catch(error => {
+            console.error('❌ Hiba az email küldés során:', error);
+            process.exit(1);
+          });
+        " 
